@@ -134,11 +134,11 @@ Built with **Java 17, Spring Boot, Thymeleaf, Bootstrap, and MySQL**, following 
 
 | Home Page | Customer Dashboard | Admin Dashboard |
 |-----------|---------------------|-------------------|
-| ![Home](src/main/resources/static/templates/screenshot/home.png) | ![Customer](src/main/resources/static/templates/screenshot/customerdashboard.png) | ![Admin](src/main/resources/static/templates/screenshot/admindashboard.png) |
+| ![Home](src/main/resources/templates/screenshot/home.png) | ![Customer](src/main/resources/templates/screenshot/customerdashboard.png) | ![Admin](src/main/resources/templates/screenshot/admindashboard.png) |
 
 | EMI Calculator | CIBIL Check | Contact Us |
 |------------------|--------------|-------------|
-| ![EMI](src/main/resources/static/templates/screenshot/EMICal.png) | ![CIBIL](src/main/resources/static/templates/screenshot/CIBILcheck.png) | ![Contact](src/main/resources/static/templates/screenshot/contactus.png) |
+| ![EMI](src/main/resources/templates/screenshot/EMICal.png) | ![CIBIL](src/main/resources/templates/screenshot/CIBILcheck.png) | ![Contact](src/main/resources/templates/screenshot/contactus.png) |
 
 *(Update the paths above to match your actual repo folder structure.)*
 
