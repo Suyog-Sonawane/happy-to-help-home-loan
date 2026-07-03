@@ -1,0 +1,28 @@
+# Maven build output
+target/
+
+# Compiled class files
+*.class
+
+# Maven wrapper (keep the jar)
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse IDE files
+.settings/
+.classpath
+.project
+
+# IntelliJ IDEA files (in case you switch later)
+.idea/
+*.iml
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Uploaded files at runtime (remove this line if these are needed sample files)
+uploads/
+
+# Application logs
+*.log

@@ -1,0 +1,5 @@
+body { background: #f6f7fb; }
+.card { border: 0; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.badge { font-size: .85rem; }
+.table thead th { background: #f1f3f7; }
+.navbar-brand { font-weight: 600; letter-spacing: .2px; }

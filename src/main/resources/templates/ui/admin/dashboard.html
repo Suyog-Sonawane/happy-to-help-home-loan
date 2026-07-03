@@ -1,0 +1,542 @@
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="ui/fragments :: head('Admin Dashboard')"></head>
+<body>
+<div th:replace="ui/fragments :: nav"></div>
+<div th:replace="ui/fragments :: alerts"></div>
+
+<div class="container mt-4">
+  <h3>Admin Dashboard</h3>
+
+  <form class="row g-2 align-items-center mt-2" method="get" th:action="@{/ui/admin/dashboard}">
+    <div class="col-md-3">
+      <select class="form-select" name="status">
+        <option value="">-- All Status --</option>
+        <option th:each="s : ${allStatuses}"
+                th:value="${s}" th:text="${s}"
+                th:selected="${status} == ${s}">
+        </option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary" type="submit">Filter</button>
+    </div>
+  </form>
+
+  <table class="table table-bordered table-striped mt-3">
+    <thead>
+    <tr>
+      <th>ID</th><th>Customer Email</th><th>Status</th><th>Requested</th><th>Created</th><th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="a : ${apps}">
+      <td th:text="${a.id}"></td>
+      <td th:text="${a.user.email}"></td>
+      <td th:text="${a.status}"></td>
+      <td th:text="${a.requestedAmount}"></td>
+      <td th:text="${a.createdAt}"></td>
+      <td>
+        <a class="btn btn-sm btn-outline-primary" th:href="@{'/ui/admin/applications/' + ${a.id}}">Open</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html> -->
+
+<!-- 
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/layout/portal :: layout('Admin Dashboard', ~{::section})}">
+<section>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+      <h3 class="mb-0">Admin Dashboard</h3>
+      <div class="text-muted">Manage applications</div>
+    </div>
+  </div>
+
+  <div class="card p-3 mb-3">
+    <form class="row g-2 align-items-center" method="get" th:action="@{/ui/admin/dashboard}">
+      <div class="col-md-4">
+        <select class="form-select" name="status">
+          <option value="">-- All Status --</option>
+          <option th:each="s : ${allStatuses}" th:value="${s}" th:text="${s}" th:selected="${status} == ${s}"></option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-primary w-100" type="submit">Filter</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card p-3">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped align-middle mb-0">
+        <thead>
+        <tr>
+          <th>ID</th><th>Customer</th><th>Status</th><th>Requested</th><th>Created</th><th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="a : ${apps}">
+          <td th:text="${a.id}"></td>
+          <td th:text="${a.user.email}"></td>
+          <td><span class="badge bg-secondary" th:text="${a.status}"></span></td>
+          <td th:text="${a.requestedAmount}"></td>
+          <td th:text="${a.createdAt}"></td>
+          <td><a class="btn btn-sm btn-outline-primary" th:href="@{'/ui/admin/applications/' + ${a.id}}">Open</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+</html> -->
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/layout/portal :: layout('Admin Dashboard', ~{::section})}">
+<section>
+
+  <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+    <div>
+      <div class="page-title h3 mb-0">Admin Dashboard</div>
+      <div class="subtle">Review applications, sanction, disburse and track EMIs</div>
+    </div>
+  </div>
+
+  Filter + quick summary of current view
+  <div class="row g-3 mb-3">
+    <div class="col-lg-7">
+      <div class="card p-3">
+        <div class="h5 mb-2">Filter</div>
+        <form class="row g-2 align-items-center" method="get" th:action="@{/ui/admin/dashboard}">
+          <div class="col-md-7">
+            <select class="form-select" name="status">
+              <option value="">-- All Status --</option>
+              <option th:each="s : ${allStatuses}" th:value="${s}" th:text="${s}" th:selected="${status} == ${s}"></option>
+            </select>
+          </div>
+          <div class="col-md-5">
+            <button class="btn btn-primary w-100" type="submit">Apply Filter</button>
+          </div>
+        </form>
+        <div class="subtle mt-2">
+          Showing: <b th:text="${status == null ? 'ALL' : status}"></b>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card p-3 stat-card">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="label">Applications in this view</div>
+            <div class="value" th:text="${#lists.size(apps)}">0</div>
+          </div>
+          <div class="icon">#</div>
+        </div>
+        <div class="subtle mt-2">Tip: Open an application to sanction/disburse</div>
+      </div>
+    </div>
+  </div>
+
+  Applications table
+  <div class="card p-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="h5 mb-0">Applications</div>
+      <div class="subtle">Click Open to take action</div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle mb-0">
+        <thead>
+        <tr>
+          <th style="width:80px;">ID</th>
+          <th>Customer</th>
+          <th>Status</th>
+          <th>Requested</th>
+          <th>Created</th>
+          <th style="width:120px;">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="a : ${apps}">
+          <td th:text="${a.id}"></td>
+          <td>
+            <div class="fw-semibold" th:text="${a.user.name}"></div>
+            <div class="subtle small" th:text="${a.user.email}"></div>
+          </td>
+
+          <td>
+            <span th:switch="${a.status.name()}">
+              <span th:case="'DRAFT'" class="badge text-bg-secondary">DRAFT</span>
+              <span th:case="'SUBMITTED'" class="badge text-bg-info">SUBMITTED</span>
+              <span th:case="'UNDER_REVIEW'" class="badge text-bg-warning">UNDER_REVIEW</span>
+              <span th:case="'REJECTED'" class="badge text-bg-danger">REJECTED</span>
+              <span th:case="'SANCTIONED'" class="badge text-bg-success">SANCTIONED</span>
+              <span th:case="'DISBURSED'" class="badge text-bg-dark">DISBURSED</span>
+              <span th:case="*" class="badge text-bg-secondary" th:text="${a.status}"></span>
+            </span>
+          </td>
+
+          <td th:text="${a.requestedAmount}"></td>
+          <td th:text="${a.createdAt}"></td>
+
+          <td>
+            <a class="btn btn-sm btn-outline-primary"
+               th:href="@{'/ui/admin/applications/' + ${a.id}}">Open</a>
+          </td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(apps)}">
+          <td colspan="6" class="text-center subtle py-4">
+            No applications found for this filter.
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+</html> -->
+
+<!-- 
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/layout/portal :: layout('Admin Dashboard', ~{::section})}">
+<section>
+
+  <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+    <div>
+      <div class="h3 fw-bold mb-0"><i class="bi bi-speedometer2 me-1"></i> Admin Dashboard</div>
+      <div class="text-muted">Portfolio overview, pipeline and pending EMIs</div>
+    </div>
+  </div>
+
+  KPI Cards
+  <div class="row g-3 mb-3">
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div class="d-flex justify-content-between">
+          <div>
+            <div class="text-muted small">Total Disbursed</div>
+            <div class="h5 fw-bold mb-0" th:text="${kpiTotalDisbursed}">0</div>
+          </div>
+          <div class="fs-3 text-success"><i class="bi bi-cash-coin"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div class="d-flex justify-content-between">
+          <div>
+            <div class="text-muted small">Total Outstanding</div>
+            <div class="h5 fw-bold mb-0" th:text="${kpiTotalOutstanding}">0</div>
+          </div>
+          <div class="fs-3 text-dark"><i class="bi bi-journal-text"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div class="d-flex justify-content-between">
+          <div>
+            <div class="text-muted small">Due EMIs</div>
+            <div class="h5 fw-bold mb-0" th:text="${kpiDueEmis}">0</div>
+          </div>
+          <div class="fs-3 text-warning"><i class="bi bi-exclamation-triangle"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div class="d-flex justify-content-between">
+          <div>
+            <div class="text-muted small">In Review</div>
+            <div class="h5 fw-bold mb-0" th:text="${kpiReview}">0</div>
+          </div>
+          <div class="fs-3 text-primary"><i class="bi bi-clipboard-check"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  Chart + Filter
+  <div class="row g-3 mb-3">
+    <div class="col-lg-7">
+      <div class="card p-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="fw-bold">Applications by Status</div>
+          <div class="text-muted small">Bank pipeline</div>
+        </div>
+        <canvas id="statusChart" height="120"></canvas>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card p-3">
+        <div class="fw-bold mb-2">Filter Applications</div>
+        <form class="row g-2 align-items-center" method="get" th:action="@{/ui/admin/dashboard}">
+          <div class="col-8">
+            <select class="form-select" name="status">
+              <option value="">-- All Status --</option>
+              <option th:each="s : ${allStatuses}" th:value="${s}" th:text="${s}" th:selected="${status} == ${s}"></option>
+            </select>
+          </div>
+          <div class="col-4">
+            <button class="btn btn-primary w-100" type="submit">Apply</button>
+          </div>
+        </form>
+
+        <hr/>
+        <div class="row g-2">
+          <div class="col-6"><span class="badge text-bg-info w-100">SUBMITTED: <span th:text="${kpiSubmitted}"></span></span></div>
+          <div class="col-6"><span class="badge text-bg-warning w-100">UNDER_REVIEW: <span th:text="${kpiReview}"></span></span></div>
+          <div class="col-6"><span class="badge text-bg-success w-100">SANCTIONED: <span th:text="${kpiSanctioned}"></span></span></div>
+          <div class="col-6"><span class="badge text-bg-dark w-100">DISBURSED: <span th:text="${kpiDisbursed}"></span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  Table
+  <div class="card p-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="fw-bold">Applications</div>
+      <div class="text-muted small">Open to sanction/disburse</div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle mb-0">
+        <thead>
+        <tr>
+          <th style="width:80px;">ID</th>
+          <th>Customer</th>
+          <th>Status</th>
+          <th>Requested</th>
+          <th>Created</th>
+          <th style="width:120px;">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="a : ${apps}">
+          <td th:text="${a.id}"></td>
+          <td>
+            <div class="fw-semibold" th:text="${a.user.name}"></div>
+            <div class="text-muted small" th:text="${a.user.email}"></div>
+          </td>
+          <td><span class="badge text-bg-secondary" th:text="${a.status}"></span></td>
+          <td th:text="${a.requestedAmount}"></td>
+          <td th:text="${a.createdAt}"></td>
+          <td><a class="btn btn-sm btn-outline-primary" th:href="@{'/ui/admin/applications/' + ${a.id}}">Open</a></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(apps)}">
+          <td colspan="6" class="text-center text-muted py-4">No applications found.</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script th:inline="javascript">
+    const labels = /*[[${chartLabels}]]*/ [];
+    const counts = /*[[${chartCounts}]]*/ [];
+
+    const ctx = document.getElementById('statusChart');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Count',
+          data: counts,
+          backgroundColor: ['#6c757d','#0dcaf0','#ffc107','#198754','#212529','#dc3545']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+  </script>
+
+</section>
+</html> -->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/layout/portal :: layout('Admin Dashboard', ~{::section})}">
+<section>
+
+  <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+    <div>
+      <div class="h3 fw-bold mb-0"><i class="bi bi-speedometer2 me-1"></i> Admin Dashboard</div>
+      <div class="text-muted">Portfolio overview, pipeline and pending EMIs</div>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="row g-3 mb-3">
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div class="d-flex justify-content-between">
+          <div>
+            <div class="text-muted small">Total Disbursed</div>
+            <div class="h5 fw-bold mb-0" th:text="${kpiTotalDisbursed}">0</div>
+          </div>
+          <div class="fs-3 text-success"><i class="bi bi-cash-coin"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div class="d-flex justify-content-between">
+          <div>
+            <div class="text-muted small">Total Outstanding</div>
+            <div class="h5 fw-bold mb-0" th:text="${kpiTotalOutstanding}">0</div>
+          </div>
+          <div class="fs-3 text-dark"><i class="bi bi-journal-text"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div class="d-flex justify-content-between">
+          <div>
+            <div class="text-muted small">Due EMIs</div>
+            <div class="h5 fw-bold mb-0" th:text="${kpiDueEmis}">0</div>
+          </div>
+          <div class="fs-3 text-warning"><i class="bi bi-exclamation-triangle"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div class="d-flex justify-content-between">
+          <div>
+            <div class="text-muted small">In Review</div>
+            <div class="h5 fw-bold mb-0" th:text="${kpiReview}">0</div>
+          </div>
+          <div class="fs-3 text-primary"><i class="bi bi-clipboard-check"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart + Filter -->
+  <div class="row g-3 mb-3">
+    <div class="col-lg-7">
+      <div class="card p-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="fw-bold">Applications by Status</div>
+          <div class="text-muted small">Bank pipeline</div>
+        </div>
+
+        <!-- SMALL CHART WRAPPER -->
+        <div class="chart-box">
+          <canvas id="statusChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card p-3">
+        <div class="fw-bold mb-2">Filter Applications</div>
+        <form class="row g-2 align-items-center" method="get" th:action="@{/ui/admin/dashboard}">
+          <div class="col-8">
+            <select class="form-select" name="status">
+              <option value="">-- All Status --</option>
+              <option th:each="s : ${allStatuses}" th:value="${s}" th:text="${s}" th:selected="${status} == ${s}"></option>
+            </select>
+          </div>
+          <div class="col-4">
+            <button class="btn btn-primary w-100" type="submit">Apply</button>
+          </div>
+        </form>
+
+        <hr/>
+        <div class="row g-2">
+          <div class="col-6"><span class="badge text-bg-info w-100">SUBMITTED: <span th:text="${kpiSubmitted}"></span></span></div>
+          <div class="col-6"><span class="badge text-bg-warning w-100">UNDER_REVIEW: <span th:text="${kpiReview}"></span></span></div>
+          <div class="col-6"><span class="badge text-bg-success w-100">SANCTIONED: <span th:text="${kpiSanctioned}"></span></span></div>
+          <div class="col-6"><span class="badge text-bg-dark w-100">DISBURSED: <span th:text="${kpiDisbursed}"></span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card p-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="fw-bold">Applications</div>
+      <div class="text-muted small">Open to sanction/disburse</div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle mb-0">
+        <thead>
+        <tr>
+          <th style="width:80px;">ID</th>
+          <th>Customer</th>
+          <th>Status</th>
+          <th>Requested</th>
+          <th>Created</th>
+          <th style="width:120px;">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="a : ${apps}">
+          <td th:text="${a.id}"></td>
+          <td>
+            <div class="fw-semibold" th:text="${a.user.name}"></div>
+            <div class="text-muted small" th:text="${a.user.email}"></div>
+          </td>
+          <td><span class="badge text-bg-secondary" th:text="${a.status}"></span></td>
+          <td th:text="${a.requestedAmount}"></td>
+          <td th:text="${a.createdAt}"></td>
+          <td><a class="btn btn-sm btn-outline-primary" th:href="@{'/ui/admin/applications/' + ${a.id}}">Open</a></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(apps)}">
+          <td colspan="6" class="text-center text-muted py-4">No applications found.</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script th:inline="javascript">
+    const labels = /*[[${chartLabels}]]*/ [];
+    const counts = /*[[${chartCounts}]]*/ [];
+
+    const ctx = document.getElementById('statusChart');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Count',
+          data: counts,
+          borderRadius: 10,
+          backgroundColor: ['#6c757d','#0dcaf0','#ffc107','#198754','#212529','#dc3545']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false, // IMPORTANT
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+  </script>
+
+</section>
+</html>

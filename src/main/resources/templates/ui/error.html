@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="ui/fragments :: head('Error')"></head>
+<body>
+<div th:replace="ui/fragments :: nav"></div>
+
+<div class="container mt-5" style="max-width: 900px;">
+  <div class="alert alert-danger">
+    <h4>Error</h4>
+    <p><b>Message:</b> <span th:text="${message}"></span></p>
+    <p class="mb-0"><b>Path:</b> <span th:text="${path}"></span></p>
+  </div>
+
+  <a class="btn btn-secondary" href="javascript:history.back()">Back</a>
+  <a class="btn btn-primary" th:href="@{/}">Home</a>
+</div>
+</body>
+</html>

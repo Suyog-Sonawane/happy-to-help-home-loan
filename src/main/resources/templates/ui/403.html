@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="ui/fragments :: head('Forbidden')"></head>
+<body>
+<div th:replace="ui/fragments :: nav"></div>
+
+<div class="container mt-5">
+  <div class="alert alert-danger">
+    <h4>403 - Forbidden</h4>
+    <p>You do not have permission to access this page.</p>
+    <a class="btn btn-primary" th:href="@{/}">Go Home</a>
+  </div>
+</div>
+</body>
+</html>

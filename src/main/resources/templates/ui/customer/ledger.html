@@ -1,0 +1,75 @@
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/layout/portal :: layout('Ledger', ~{::section})}">
+<section>
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <div>
+      <h3 class="mb-0">Ledger - App #<span th:text="${app.id}"></span></h3>
+      <div class="text-muted">Principal Outstanding: <b th:text="${balance}"></b></div>
+    </div>
+    <a class="btn btn-outline-secondary" th:href="@{'/ui/customer/applications/' + ${app.id}}">Back</a>
+  </div>
+
+  <div class="card p-3">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped align-middle mb-0">
+        <thead>
+        <tr>
+          <th>Date</th><th>Type</th><th>Description</th>
+          <th>Principal Debit</th><th>Principal Credit</th><th>Interest Credit</th><th>Outstanding</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="l : ${entries}">
+          <td th:text="${l.entryAt}"></td>
+          <td th:text="${l.type}"></td>
+          <td th:text="${l.description}"></td>
+          <td th:text="${l.principalDebit}"></td>
+          <td th:text="${l.principalCredit}"></td>
+          <td th:text="${l.interestCredit}"></td>
+          <td th:text="${l.principalOutstanding}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+</html> -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/layout/portal :: layout('Ledger', ~{::section})}">
+<section>
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <div>
+      <h3 class="mb-0">Ledger</h3>
+      <div class="text-muted">App #<b th:text="${app.id}"></b> | Outstanding: <b th:text="${balance}"></b></div>
+    </div>
+    <a class="btn btn-outline-secondary" th:href="@{'/ui/customer/applications/' + ${app.id}}">Back</a>
+  </div>
+
+  <div class="card p-3">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped align-middle mb-0">
+        <thead>
+        <tr>
+          <th>Date</th><th>Type</th><th>Description</th>
+          <th>P.Debit</th><th>P.Credit</th><th>I.Credit</th><th>Outstanding</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="l : ${entries}">
+          <td th:text="${l.entryAt}"></td>
+          <td th:text="${l.type}"></td>
+          <td th:text="${l.description}"></td>
+          <td th:text="${l.principalDebit}"></td>
+          <td th:text="${l.principalCredit}"></td>
+          <td th:text="${l.interestCredit}"></td>
+          <td th:text="${l.principalOutstanding}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+</html>

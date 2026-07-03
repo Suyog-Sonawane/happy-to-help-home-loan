@@ -1,0 +1,221 @@
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/public/public-layout :: layout('Contact Us', ~{::section})}">
+<section>
+
+  <div class="page-hero">
+    <div class="badge bg-primary-subtle text-primary mb-2">
+      <i class="bi bi-headset"></i> Support
+    </div>
+    <div class="title h2 mb-1">Contact Us</div>
+    <div class="muted">We’re here to help with applications, documents, and EMI queries.</div>
+  </div>
+
+  <div class="row g-3 mt-3">
+    <div class="col-lg-7">
+      <div class="form-shell">
+        <div class="h5 fw-bold mb-2">Send a message</div>
+        <div class="muted mb-3">Fill the form and our team will contact you.</div>
+
+        <form method="post" th:action="@{/ui/public/contact}">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Name</label>
+              <input class="form-control" name="name" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input class="form-control" type="email" name="email" required>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Message</label>
+              <textarea class="form-control" name="message" rows="4" required></textarea>
+            </div>
+
+
+<div class="col-12">
+  <label class="form-label">Subject</label>
+  <input class="form-control" name="subject" required>
+</div>
+
+            <div class="col-12 d-flex gap-2">
+              <button class="btn btn-primary" type="submit">
+                <i class="bi bi-send"></i> Send
+              </button>
+              <a class="btn btn-outline-secondary" th:href="@{/}">
+                Back to Home
+              </a>
+            </div>
+          </div>
+        </form>
+
+        <div class="soft-divider"></div>
+        <div class="muted small">
+          Note: In this demo, the message is not stored. You can extend it to save in DB or email to admin.
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="row g-3">
+        <div class="col-12">
+          <div class="info-tile">
+            <div class="d-flex gap-3">
+              <div class="icon-chip"><i class="bi bi-telephone"></i></div>
+              <div>
+                <div class="h h6 mb-1">Phone</div>
+                <div class="muted">1800-000-000</div>
+                <div class="muted small">Mon–Sat: 9:00 AM – 6:00 PM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="info-tile">
+            <div class="d-flex gap-3">
+              <div class="icon-chip"><i class="bi bi-envelope"></i></div>
+              <div>
+                <div class="h h6 mb-1">Email</div>
+                <div class="muted">support@homeloan.local</div>
+                <div class="muted small">We reply within 24 hours</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="info-tile">
+            <div class="d-flex gap-3">
+              <div class="icon-chip"><i class="bi bi-geo-alt"></i></div>
+              <div>
+                <div class="h h6 mb-1">Branch</div>
+                <div class="muted">Main Branch, Hyderabad</div>
+                <div class="muted small">Open: Mon–Sat</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+</html> -->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/public/public-layout :: layout('Contact Us', ~{::section})}">
+<section>
+
+  <div class="page-hero">
+    <div class="badge bg-primary-subtle text-primary mb-2">
+      <i class="bi bi-headset"></i> Support
+    </div>
+    <div class="title h2 mb-1">Contact Us</div>
+    <div class="muted">We’re here to help with applications, documents, and EMI queries.</div>
+  </div>
+
+  <div class="row g-3 mt-3">
+    <!-- FORM -->
+    <div class="col-lg-7">
+      <div class="form-shell">
+        <div class="h5 fw-bold mb-1">Send a message</div>
+        <div class="muted mb-3">Fill the form and our team will contact you.</div>
+
+        <form method="post" th:action="@{/ui/public/contact}">
+          <div class="row g-3">
+
+            <div class="col-md-6">
+              <label class="form-label">Name</label>
+              <input class="form-control" name="name" placeholder="Your full name" autocomplete="name" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input class="form-control" type="email" name="email"
+                     placeholder="name@example.com" autocomplete="email" required>
+            </div>
+
+            <!-- Subject BEFORE message -->
+            <div class="col-12">
+              <label class="form-label">Subject</label>
+              <input class="form-control" name="subject" placeholder="Eg: EMI due date / Document upload / Application status" required>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Message</label>
+              <textarea class="form-control" name="message" rows="4"
+                        placeholder="Write your message in detail..." required></textarea>
+            </div>
+
+            <div class="col-12 d-flex gap-2">
+              <button class="btn btn-primary" type="submit">
+                <i class="bi bi-send"></i> Send
+              </button>
+              <a class="btn btn-outline-secondary" th:href="@{/}">
+                Back to Home
+              </a>
+            </div>
+
+          </div>
+        </form>
+
+        <div class="soft-divider"></div>
+        <div class="muted small">
+          Note: Your message is stored in our system and emailed to the support team.
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT INFO -->
+    <div class="col-lg-5">
+      <div class="row g-3">
+
+        <div class="col-12">
+          <div class="info-tile">
+            <div class="d-flex gap-3">
+              <div class="icon-chip"><i class="bi bi-telephone"></i></div>
+              <div>
+                <div class="h h6 mb-1">Phone</div>
+                <div class="muted">1800-1800-1800</div>
+                <div class="muted small">Mon–Sat: 9:00 AM – 6:00 PM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="info-tile">
+            <div class="d-flex gap-3">
+              <div class="icon-chip"><i class="bi bi-envelope"></i></div>
+              <div>
+                <div class="h h6 mb-1">Email</div>
+                <div class="muted">support@happytohelp.local</div>
+                <div class="muted small">We reply within 24 hours</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="info-tile">
+            <div class="d-flex gap-3">
+              <div class="icon-chip"><i class="bi bi-geo-alt"></i></div>
+              <div>
+                <div class="h h6 mb-1">Branch</div>
+                <div class="muted">Main Branch, Nashik</div>
+                <div class="muted small">Open: Mon–Sat</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+</html>

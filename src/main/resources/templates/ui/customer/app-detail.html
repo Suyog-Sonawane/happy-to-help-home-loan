@@ -1,0 +1,177 @@
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="ui/fragments :: head('Application Detail')"></head>
+<body>
+<div th:replace="ui/fragments :: nav"></div>
+<div th:replace="ui/fragments :: alerts"></div>
+
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center">
+    <h3>Application #<span th:text="${app.id}"></span></h3>
+    <a class="btn btn-link" th:href="@{/ui/customer/dashboard}">Back</a>
+  </div>
+
+  <div class="card mt-2">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4"><b>Status:</b> <span th:text="${app.status}"></span></div>
+        <div class="col-md-4"><b>Requested:</b> <span th:text="${app.requestedAmount}"></span></div>
+        <div class="col-md-4"><b>Tenure:</b> <span th:text="${app.tenureMonths}"></span></div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-4"><b>Property Value:</b> <span th:text="${app.propertyValue}"></span></div>
+        <div class="col-md-8"><b>Property Address:</b> <span th:text="${app.propertyAddress}"></span></div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-4"><b>Monthly Income:</b> <span th:text="${app.monthlyIncome}"></span></div>
+        <div class="col-md-4"><b>Existing EMI:</b> <span th:text="${app.existingEmi}"></span></div>
+        <div class="col-md-4"><b>Admin Remarks:</b> <span th:text="${app.adminRemarks}"></span></div>
+      </div>
+
+      <div class="mt-3" th:if="${app.status.name() == 'DRAFT'}">
+        <form method="post" th:action="@{'/ui/customer/applications/' + ${app.id} + '/submit'}">
+          <button class="btn btn-warning" type="submit">Submit Application</button>
+        </form>
+      </div>
+
+      <div class="mt-3 d-flex gap-2" th:if="${app.status.name() == 'DISBURSED'}">
+        <a class="btn btn-outline-primary" th:href="@{'/ui/customer/applications/' + ${app.id} + '/emis'}">EMI Schedule</a>
+        <a class="btn btn-outline-dark" th:href="@{'/ui/customer/applications/' + ${app.id} + '/ledger'}">Ledger</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-header">Upload Document</div>
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data"
+            th:action="@{'/ui/customer/applications/' + ${app.id} + '/documents'}"
+            class="row g-2 align-items-center">
+        <div class="col-md-3">
+          <select class="form-select" name="type">
+            <option th:each="t : ${docTypes}" th:value="${t}" th:text="${t}"></option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" type="file" name="file" required>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-primary w-100" type="submit">Upload</button>
+        </div>
+      </form>
+
+      <hr/>
+      <h6>Uploaded Documents</h6>
+      <table class="table table-sm table-bordered">
+        <thead><tr><th>Type</th><th>File</th><th>UploadedAt</th></tr></thead>
+        <tbody>
+        <tr th:each="d : ${documents}">
+          <td th:text="${d.type}"></td>
+          <td th:text="${d.originalFileName}"></td>
+          <td th:text="${d.uploadedAt}"></td>
+        </tr>
+        </tbody>
+      </table>
+
+      <p class="text-muted mb-0">Download is not implemented. Files are stored on server filesystem.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/layout/portal :: layout('Application Detail', ~{::section})}">
+<section>
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <div>
+      <h3 class="mb-0">Application #<span th:text="${app.id}"></span></h3>
+      <div class="text-muted">Status: <b th:text="${app.status}"></b></div>
+    </div>
+    <a class="btn btn-outline-secondary" th:href="@{/ui/customer/dashboard}">Back</a>
+  </div>
+
+  <div class="card p-3 mb-3">
+    <div class="row g-2">
+      <div class="col-md-4"><b>Requested:</b> <span th:text="${app.requestedAmount}"></span></div>
+      <div class="col-md-4"><b>Tenure:</b> <span th:text="${app.tenureMonths}"></span></div>
+      <div class="col-md-4"><b>Property Value:</b> <span th:text="${app.propertyValue}"></span></div>
+      <div class="col-12"><b>Property Address:</b> <span th:text="${app.propertyAddress}"></span></div>
+      <div class="col-md-4"><b>Monthly Income:</b> <span th:text="${app.monthlyIncome}"></span></div>
+      <div class="col-md-4"><b>Existing EMI:</b> <span th:text="${app.existingEmi}"></span></div>
+      <div class="col-md-4"><b>Admin Remarks:</b> <span th:text="${app.adminRemarks}"></span></div>
+    </div>
+
+    <div class="d-flex gap-2 mt-3 flex-wrap">
+      <form th:if="${app.status.name() == 'DRAFT'}" method="post"
+            th:action="@{'/ui/customer/applications/' + ${app.id} + '/submit'}">
+        <button class="btn btn-warning" type="submit">Submit Application</button>
+      </form>
+
+      <a class="btn btn-outline-primary"
+         th:if="${app.status.name() == 'DISBURSED'}"
+         th:href="@{'/ui/customer/applications/' + ${app.id} + '/emis'}">EMI Schedule</a>
+
+      <a class="btn btn-outline-dark"
+         th:if="${app.status.name() == 'DISBURSED'}"
+         th:href="@{'/ui/customer/applications/' + ${app.id} + '/ledger'}">Ledger</a>
+
+      <a class="btn btn-outline-success"
+         th:if="${app.status.name() == 'SANCTIONED' or app.status.name() == 'DISBURSED'}"
+         th:href="@{'/ui/customer/applications/' + ${app.id} + '/sanction-letter.pdf'}"
+         target="_blank">Download Sanction Letter (PDF)</a>
+
+      <a class="btn btn-outline-success"
+         th:if="${app.status.name() == 'DISBURSED'}"
+         th:href="@{'/ui/customer/applications/' + ${app.id} + '/disbursement-letter.pdf'}"
+         target="_blank">Download Disbursement Letter (PDF)</a>
+    </div>
+  </div>
+
+  <div class="card p-3 mb-3">
+    <h5 class="mb-2">Upload Document</h5>
+    <form method="post" enctype="multipart/form-data"
+          th:action="@{'/ui/customer/applications/' + ${app.id} + '/documents'}"
+          class="row g-2 align-items-center">
+      <div class="col-md-3">
+        <select class="form-select" name="type">
+          <option th:each="t : ${docTypes}" th:value="${t}" th:text="${t}"></option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <input class="form-control" type="file" name="file" required>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-primary w-100" type="submit">Upload</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card p-3">
+    <h5 class="mb-2">Uploaded Documents</h5>
+    <div class="table-responsive">
+      <table class="table table-bordered table-sm align-middle mb-0">
+        <thead><tr><th>Type</th><th>File</th><th>Uploaded</th><th>Action</th></tr></thead>
+        <tbody>
+        <tr th:each="d : ${documents}">
+          <td th:text="${d.type}"></td>
+          <td th:text="${d.originalFileName}"></td>
+          <td th:text="${d.uploadedAt}"></td>
+          <td>
+            <a class="btn btn-sm btn-outline-secondary"
+               th:href="@{'/ui/customer/applications/' + ${app.id} + '/documents/' + ${d.id} + '/download'}">
+              Download
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+</html>

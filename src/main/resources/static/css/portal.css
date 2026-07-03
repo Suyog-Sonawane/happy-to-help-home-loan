@@ -1,0 +1,183 @@
+
+
+:root { --sidebar-w: 260px; }
+
+body { background: #f6f7fb; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+.portal-wrap { min-height: calc(100vh - 56px); }
+
+.sidebar {
+  width: var(--sidebar-w);
+  background: #111827;
+  color: #e5e7eb;
+}
+.sidebar .brand { font-weight: 700; letter-spacing: .3px; }
+.sidebar .nav-link {
+  color: #e5e7eb;
+  padding: .65rem .9rem;
+  border-radius: .6rem;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,.06);
+}
+.sidebar .nav-link:hover { background: rgba(255,255,255,.08); }
+
+.main { flex: 1; padding: 1.25rem; }
+
+.card { border: 0; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.table thead th { background: #f1f3f7; }
+.badge { font-size: .82rem; padding: .45em .65em; border-radius: 999px; }
+
+.stat-card .label { color: #6b7280; font-size: .9rem; }
+.stat-card .value { font-size: 1.5rem; font-weight: 700; }
+.stat-card .icon {
+  width: 44px; height: 44px; display: grid; place-items: center;
+  border-radius: 12px; background: #f3f4f6; color: #111827; font-weight: 700;
+}
+
+.page-title { font-weight: 700; }
+.subtle { color: #6b7280; }
+
+.chart-box{
+  height: 220px;          
+  position: relative;
+}
+.chart-box canvas{
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+:root { --sidebar-w: 260px; }
+
+body {
+  background: #f6f7fb;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
+
+.portal-wrap { min-height: calc(100vh - 56px); }
+
+Sidebar
+.sidebar {
+  width: var(--sidebar-w);
+  background: #111827;
+  color: #e5e7eb;
+}
+
+.sidebar .brand { font-weight: 700; letter-spacing: .3px; }
+
+.sidebar .nav-link {
+  color: #e5e7eb;
+  padding: .65rem .9rem;
+  border-radius: .6rem;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,.06);
+}
+
+.sidebar .nav-link:hover { background: rgba(255,255,255,.08); }
+
+Main
+.main { flex: 1; padding: 1.25rem; }
+
+.card {
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+}
+
+.table thead th { background: #f1f3f7; }
+
+.badge {
+  font-size: .82rem;
+  padding: .45em .65em;
+  border-radius: 999px;
+}
+
+.page-title { font-weight: 700; }
+.subtle { color: #6b7280; }
+
+KPI cards
+.stat-card .label { color: #6b7280; font-size: .9rem; }
+.stat-card .value { font-size: 1.5rem; font-weight: 700; }
+.stat-card .icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #f3f4f6;
+  color: #111827;
+  font-weight: 700;
+}
+
+---------- CHART SIZE FIX (small + attractive) ----------
+.chart-box {
+  height: 220px;          change this to 180/200 if you want smaller
+  position: relative;
+}
+.chart-box canvas{
+  width: 100% !important;
+  height: 100% !important;
+}
+--------------------------------------------------------
+
+---------- NEW: Admin detail helpers ----------
+.kv {
+  display: flex;
+  gap: .5rem;
+  align-items: baseline;
+}
+
+.kv .k {
+  color: #6b7280;
+  font-size: .85rem;
+  min-width: 140px;
+}
+
+.kv .v {
+  font-weight: 600;
+  color: #111827;
+}
+
+.status-pill {
+  border-radius: 999px;
+  padding: .35rem .65rem;
+  font-weight: 800;
+  font-size: .80rem;
+  letter-spacing: .2px;
+}
+
+Optional: nicer accordion
+.accordion-button {
+  font-weight: 700;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+Slightly nicer buttons in dense screens
+.btn { border-radius: 10px; }
+--------------------------------------------------------
+
+Responsive tweaks
+@media (max-width: 991px){
+  .sidebar { width: 220px; }
+  .main { padding: 1rem; }
+}
+
+@media (max-width: 767px){
+  .sidebar { display:none; } optional: hide sidebar on mobile
+} */

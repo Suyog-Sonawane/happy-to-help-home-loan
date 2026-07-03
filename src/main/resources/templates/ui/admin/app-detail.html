@@ -1,0 +1,428 @@
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/layout/portal :: layout('Admin Application', ~{::section})}">
+<section>
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <div>
+      <h3 class="mb-0">Application #<span th:text="${app.id}"></span></h3>
+      <div class="text-muted">Customer: <b th:text="${app.user.email}"></b> | Status: <b th:text="${app.status}"></b></div>
+    </div>
+    <a class="btn btn-outline-secondary" th:href="@{/ui/admin/dashboard}">Back</a>
+  </div>
+
+  <div class="card p-3 mb-3">
+    <div class="row g-2">
+      <div class="col-md-4"><b>Requested:</b> <span th:text="${app.requestedAmount}"></span></div>
+      <div class="col-md-4"><b>Tenure:</b> <span th:text="${app.tenureMonths}"></span></div>
+      <div class="col-md-4"><b>Property Value:</b> <span th:text="${app.propertyValue}"></span></div>
+      <div class="col-12"><b>Property Address:</b> <span th:text="${app.propertyAddress}"></span></div>
+      <div class="col-12"><b>Remarks:</b> <span th:text="${app.adminRemarks}"></span></div>
+    </div>
+
+    <div class="d-flex gap-2 mt-3 flex-wrap">
+      <a class="btn btn-outline-success"
+         th:if="${app.status.name() == 'SANCTIONED' or app.status.name() == 'DISBURSED'}"
+         th:href="@{'/ui/admin/applications/' + ${app.id} + '/sanction-letter.pdf'}"
+         target="_blank">Download Sanction Letter (PDF)</a>
+
+      <a class="btn btn-outline-success"
+         th:if="${app.status.name() == 'DISBURSED'}"
+         th:href="@{'/ui/admin/applications/' + ${app.id} + '/disbursement-letter.pdf'}"
+         target="_blank">Download Disbursement Letter (PDF)</a>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-lg-6">
+      <div class="card p-3">
+        <h5>Actions</h5>
+
+        <form method="post" th:action="@{'/ui/admin/applications/' + ${app.id} + '/under-review'}" class="mb-2">
+          <button class="btn btn-warning w-100" type="submit">Move to UNDER_REVIEW</button>
+        </form>
+
+        <form method="post" th:action="@{'/ui/admin/applications/' + ${app.id} + '/reject'}" class="mb-3">
+          <label class="form-label">Reject Reason</label>
+          <input class="form-control mb-2" name="reason" required>
+          <button class="btn btn-danger w-100" type="submit">Reject</button>
+        </form>
+
+        <hr/>
+        <h6>Sanction (sends email)</h6>
+        <form method="post" th:action="@{'/ui/admin/applications/' + ${app.id} + '/sanction'}" th:object="${sanctionReq}">
+          <label class="form-label">Sanctioned Amount</label>
+          <input type="number" step="0.01" class="form-control mb-1" th:field="*{sanctionedAmount}" required>
+          <div class="text-danger" th:errors="*{sanctionedAmount}"></div>
+
+          <label class="form-label mt-2">Annual Interest %</label>
+          <input type="number" step="0.01" class="form-control mb-1" th:field="*{annualInterestRate}" required>
+          <div class="text-danger" th:errors="*{annualInterestRate}"></div>
+
+          <label class="form-label mt-2">Tenure (months)</label>
+          <input type="number" step="1" class="form-control mb-1" th:field="*{tenureMonths}" required>
+          <div class="text-danger" th:errors="*{tenureMonths}"></div>
+
+          <label class="form-label mt-2">Remarks</label>
+          <input class="form-control mb-2" th:field="*{remarks}">
+          <button class="btn btn-success w-100" type="submit">Sanction + Email</button>
+        </form>
+
+        <hr/>
+        <h6>Disburse (sends email + generates EMI)</h6>
+        <form method="post" th:action="@{'/ui/admin/applications/' + ${app.id} + '/disburse'}" th:object="${disburseReq}">
+          <label class="form-label">Disbursed Amount</label>
+          <input type="number" step="0.01" class="form-control mb-2" th:field="*{disbursedAmount}" required>
+
+          <label class="form-label">Disbursed Date (optional)</label>
+          <input type="date" class="form-control mb-2" th:field="*{disbursedDate}">
+          <button class="btn btn-primary w-100" type="submit">Disburse + Email</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card p-3">
+        <h5>Documents</h5>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered align-middle mb-0">
+            <thead><tr><th>Type</th><th>File</th><th>Action</th></tr></thead>
+            <tbody>
+            <tr th:each="d : ${documents}">
+              <td th:text="${d.type}"></td>
+              <td th:text="${d.originalFileName}"></td>
+              <td>
+                <a class="btn btn-sm btn-outline-secondary"
+                   th:href="@{'/ui/admin/applications/' + ${app.id} + '/documents/' + ${d.id} + '/download'}">Download</a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <hr/>
+        <h6>Ledger (quick view)</h6>
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered mb-0">
+            <thead><tr><th>Type</th><th>P.Debit</th><th>P.Credit</th><th>Outstanding</th></tr></thead>
+            <tbody>
+            <tr th:each="l : ${ledger}">
+              <td th:text="${l.type}"></td>
+              <td th:text="${l.principalDebit}"></td>
+              <td th:text="${l.principalCredit}"></td>
+              <td th:text="${l.principalOutstanding}"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+</html> 
+
+
+
+
+
+
+
+
+<!-- 
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/layout/portal :: layout('Admin Application', ~{::section})}">
+<section>
+
+  <div class="mx-auto" style="max-width: 1280px;">
+
+    Header
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+      <div>
+        <div class="d-flex align-items-center gap-2">
+          <div class="h3 fw-bold mb-0">Application #<span th:text="${app.id}"></span></div>
+
+          <span th:switch="${app.status.name()}">
+            <span th:case="'DRAFT'" class="status-pill bg-secondary text-white">DRAFT</span>
+            <span th:case="'SUBMITTED'" class="status-pill bg-info text-dark">SUBMITTED</span>
+            <span th:case="'UNDER_REVIEW'" class="status-pill bg-warning text-dark">UNDER_REVIEW</span>
+            <span th:case="'REJECTED'" class="status-pill bg-danger text-white">REJECTED</span>
+            <span th:case="'SANCTIONED'" class="status-pill bg-success text-white">SANCTIONED</span>
+            <span th:case="'DISBURSED'" class="status-pill bg-dark text-white">DISBURSED</span>
+            <span th:case="*" class="status-pill bg-secondary text-white" th:text="${app.status}"></span>
+          </span>
+        </div>
+
+        <div class="text-muted">
+          Customer:
+          <b th:text="${app.user.name}"></b>
+          (<span th:text="${app.user.email}"></span>)
+          <span class="ms-2">Created: <span th:text="${app.createdAt}"></span></span>
+        </div>
+      </div>
+
+      <div class="d-flex gap-2 flex-wrap">
+        <a class="btn btn-outline-secondary" th:href="@{/ui/admin/dashboard}">
+          <i class="bi bi-arrow-left"></i> Back
+        </a>
+
+        <a class="btn btn-outline-success"
+           th:if="${app.status.name() == 'SANCTIONED' or app.status.name() == 'DISBURSED'}"
+           th:href="@{'/ui/admin/applications/' + ${app.id} + '/sanction-letter.pdf'}"
+           target="_blank">
+          <i class="bi bi-file-earmark-pdf"></i> Sanction PDF
+        </a>
+
+        <a class="btn btn-outline-success"
+           th:if="${app.status.name() == 'DISBURSED'}"
+           th:href="@{'/ui/admin/applications/' + ${app.id} + '/disbursement-letter.pdf'}"
+           target="_blank">
+          <i class="bi bi-file-earmark-pdf"></i> Disbursement PDF
+        </a>
+      </div>
+    </div>
+
+    Summary
+    <div class="card p-3 mb-3">
+      <div class="row g-2">
+        <div class="col-lg-4">
+          <div class="kv"><div class="k">Requested Amount</div><div class="v" th:text="${app.requestedAmount}"></div></div>
+          <div class="kv"><div class="k">Tenure (months)</div><div class="v" th:text="${app.tenureMonths}"></div></div>
+          <div class="kv"><div class="k">Property Value</div><div class="v" th:text="${app.propertyValue}"></div></div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="kv"><div class="k">Monthly Income</div><div class="v" th:text="${app.monthlyIncome}"></div></div>
+          <div class="kv"><div class="k">Existing EMI</div><div class="v" th:text="${app.existingEmi}"></div></div>
+          <div class="kv"><div class="k">Property Address</div><div class="v" th:text="${app.propertyAddress}"></div></div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="kv"><div class="k">Sanctioned Amount</div><div class="v" th:text="${app.sanctionedAmount}"></div></div>
+          <div class="kv"><div class="k">Interest Rate</div><div class="v"><span th:text="${app.annualInterestRate}"></span> %</div></div>
+          <div class="kv"><div class="k">Disbursed Amount</div><div class="v" th:text="${app.disbursedAmount}"></div></div>
+        </div>
+
+        <div class="col-12 mt-2">
+          <div class="kv">
+            <div class="k">Admin Remarks</div>
+            <div class="v" th:text="${app.adminRemarks}">-</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      Actions
+      <div class="col-lg-6">
+        <div class="card p-3">
+          <div class="fw-bold mb-2"><i class="bi bi-gear me-1"></i> Actions</div>
+
+          <div class="accordion" id="actionsAcc">
+
+            Under Review
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#act1">
+                  Move to UNDER_REVIEW
+                </button>
+              </h2>
+              <div id="act1" class="accordion-collapse collapse show" data-bs-parent="#actionsAcc">
+                <div class="accordion-body">
+                  <form method="post" th:action="@{'/ui/admin/applications/' + ${app.id} + '/under-review'}">
+                    <button class="btn btn-warning w-100" type="submit">
+                      <i class="bi bi-clipboard-check"></i> UNDER_REVIEW
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            Reject
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#act2">
+                  Reject Application
+                </button>
+              </h2>
+              <div id="act2" class="accordion-collapse collapse" data-bs-parent="#actionsAcc">
+                <div class="accordion-body">
+                  <form method="post" th:action="@{'/ui/admin/applications/' + ${app.id} + '/reject'}">
+                    <label class="form-label">Reject Reason</label>
+                    <input class="form-control mb-2" name="reason" required>
+                    <button class="btn btn-danger w-100" type="submit">
+                      <i class="bi bi-x-circle"></i> Reject
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            Sanction
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#act3">
+                  Sanction (Approval) + Email
+                </button>
+              </h2>
+              <div id="act3" class="accordion-collapse collapse" data-bs-parent="#actionsAcc">
+                <div class="accordion-body">
+                  <form method="post"
+                        th:action="@{'/ui/admin/applications/' + ${app.id} + '/sanction'}"
+                        th:object="${sanctionReq}">
+                    <div class="row g-2">
+                      <div class="col-md-6">
+                        <label class="form-label">Sanctioned Amount</label>
+                        <input type="number" step="0.01" class="form-control" th:field="*{sanctionedAmount}" required>
+                        <div class="text-danger small" th:errors="*{sanctionedAmount}"></div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Annual Interest %</label>
+                        <input type="number" step="0.01" class="form-control" th:field="*{annualInterestRate}" required>
+                        <div class="text-danger small" th:errors="*{annualInterestRate}"></div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Tenure (months)</label>
+                        <input type="number" step="1" class="form-control" th:field="*{tenureMonths}" required>
+                        <div class="text-danger small" th:errors="*{tenureMonths}"></div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Remarks</label>
+                        <input class="form-control" th:field="*{remarks}">
+                      </div>
+
+                      <div class="col-12">
+                        <button class="btn btn-success w-100" type="submit">
+                          <i class="bi bi-check2-circle"></i> Sanction + Email
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            Disburse
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#act4">
+                  Disburse + Generate EMI + Email
+                </button>
+              </h2>
+              <div id="act4" class="accordion-collapse collapse" data-bs-parent="#actionsAcc">
+                <div class="accordion-body">
+                  <form method="post"
+                        th:action="@{'/ui/admin/applications/' + ${app.id} + '/disburse'}"
+                        th:object="${disburseReq}">
+                    <div class="row g-2">
+                      <div class="col-md-6">
+                        <label class="form-label">Disbursed Amount</label>
+                        <input type="number" step="0.01" class="form-control" th:field="*{disbursedAmount}" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Disbursed Date (optional)</label>
+                        <input type="date" class="form-control" th:field="*{disbursedDate}">
+                      </div>
+
+                      <div class="col-12">
+                        <button class="btn btn-primary w-100" type="submit">
+                          <i class="bi bi-cash-coin"></i> Disburse + Email
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>accordion
+        </div>
+      </div>
+
+      Documents + Ledger + EMI
+      <div class="col-lg-6">
+        <div class="card p-3 mb-3">
+          <div class="fw-bold mb-2"><i class="bi bi-folder2-open me-1"></i> Documents</div>
+          <div class="table-responsive">
+            <table class="table table-sm table-bordered align-middle mb-0">
+              <thead>
+              <tr><th>Type</th><th>File</th><th style="width:110px;">Action</th></tr>
+              </thead>
+              <tbody>
+              <tr th:each="d : ${documents}">
+                <td th:text="${d.type}"></td>
+                <td th:text="${d.originalFileName}"></td>
+                <td>
+                  <a class="btn btn-sm btn-outline-secondary"
+                     th:href="@{'/ui/admin/applications/' + ${app.id} + '/documents/' + ${d.id} + '/download'}">
+                    Download
+                  </a>
+                </td>
+              </tr>
+              <tr th:if="${#lists.isEmpty(documents)}">
+                <td colspan="3" class="text-center text-muted py-3">No documents uploaded.</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card p-3 mb-3">
+          <div class="fw-bold mb-2"><i class="bi bi-journal-text me-1"></i> Ledger (Quick View)</div>
+          <div class="table-responsive">
+            <table class="table table-sm table-bordered align-middle mb-0">
+              <thead>
+              <tr><th>Type</th><th>P.Debit</th><th>P.Credit</th><th>Outstanding</th></tr>
+              </thead>
+              <tbody>
+              <tr th:each="l : ${ledger}">
+                <td th:text="${l.type}"></td>
+                <td th:text="${l.principalDebit}"></td>
+                <td th:text="${l.principalCredit}"></td>
+                <td th:text="${l.principalOutstanding}"></td>
+              </tr>
+              <tr th:if="${#lists.isEmpty(ledger)}">
+                <td colspan="4" class="text-center text-muted py-3">Ledger will appear after disbursement/payment.</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card p-3">
+          <div class="fw-bold mb-2"><i class="bi bi-cash-stack me-1"></i> EMI (Quick View)</div>
+          <div class="table-responsive">
+            <table class="table table-sm table-bordered align-middle mb-0">
+              <thead>
+              <tr><th>No</th><th>Due</th><th>EMI</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+              <tr th:each="e,st : ${emis}" th:if="${st.index < 6}">
+                <td th:text="${e.installmentNo}"></td>
+                <td th:text="${e.dueDate}"></td>
+                <td th:text="${e.emiAmount}"></td>
+                <td th:text="${e.status}"></td>
+              </tr>
+              <tr th:if="${#lists.isEmpty(emis)}">
+                <td colspan="4" class="text-center text-muted py-3">EMIs will generate after disbursement.</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-muted small mt-2" th:if="${#lists.size(emis) > 6}">
+            Showing first 6 EMIs. Full schedule available after disbursement.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+</html> -->

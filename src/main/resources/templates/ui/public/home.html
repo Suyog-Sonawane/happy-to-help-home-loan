@@ -1,0 +1,562 @@
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/public/public-layout :: layout('Home', ~{::section})}">
+<section>
+  <div class="p-4 bg-white rounded shadow-sm">
+    <h2>Welcome to HomeLoan Portal</h2>
+    <p class="text-muted mb-0">
+      Apply for a home loan, track status, download letters, view EMI schedule, pay EMI and view ledger.
+    </p>
+
+    <div class="mt-3 d-flex gap-2 flex-wrap">
+      <a class="btn btn-primary" th:href="@{/ui/login}">Login</a>
+      <a class="btn btn-outline-primary" th:href="@{/ui/register}">New Customer Registration</a>
+      <a class="btn btn-outline-dark" th:href="@{/ui/public/emi-calculator}">EMI Calculator</a>
+      <a class="btn btn-outline-success" th:href="@{/ui/public/cibil-check}">CIBIL Check</a>
+    </div>
+  </div>
+
+  <div class="row mt-4 g-3">
+    <div class="col-md-4">
+      <div class="bg-white rounded shadow-sm p-3">
+        <h5>Fast Processing</h5>
+        <p class="text-muted mb-0">Simple online application and tracking.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="bg-white rounded shadow-sm p-3">
+        <h5>Transparent EMI</h5>
+        <p class="text-muted mb-0">EMI schedule and ledger available anytime.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="bg-white rounded shadow-sm p-3">
+        <h5>Letters on Email</h5>
+        <p class="text-muted mb-0">Sanction & Disbursement letters delivered as PDF.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</html> -->
+
+<!-- 
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/public/public-layout :: layout('Home', ~{::section})}">
+<section>
+
+  HERO
+  <div class="hero p-4 p-lg-5">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <div class="badge-soft mb-3">
+          <i class="bi bi-shield-check me-1"></i> Secure • Fast • Transparent
+        </div>
+
+        <h1 class="display-5 fw-bold mb-2">Welcome to HomeLoan Portal</h1>
+        <p class="lead mb-4">
+          Apply for a home loan, track status, download letters, view EMI schedule, pay EMI and view ledger.
+        </p>
+
+        <div class="d-flex flex-wrap gap-2">
+          <a class="btn btn-primary btn-lg" th:href="@{/ui/login}">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Login
+          </a>
+          <a class="btn btn-outline-light btn-lg" th:href="@{/ui/register}">
+            <i class="bi bi-person-plus me-1"></i> New Customer Registration
+          </a>
+          <a class="btn btn-outline-light btn-lg" th:href="@{/ui/public/emi-calculator}">
+            <i class="bi bi-calculator me-1"></i> EMI Calculator
+          </a>
+        </div>
+
+        <div class="mt-4 small" style="color:rgba(255,255,255,.70)">
+          <i class="bi bi-info-circle me-1"></i>
+          Demo project UI — you can extend with KYC, penalty, and reports.
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="hero-art p-4">
+          <div class="d-flex align-items-center justify-content-between">
+            <div>
+              <div class="small" style="color:rgba(255,255,255,.65)">Average rate</div>
+              <div class="h2 fw-bold mb-0">9.5%</div>
+            </div>
+            <div class="text-end">
+              <div class="small" style="color:rgba(255,255,255,.65)">Tenure</div>
+              <div class="h2 fw-bold mb-0">Up to 20Y</div>
+            </div>
+          </div>
+          <hr style="border-color:rgba(255,255,255,.15)"/>
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="p-3 rounded-3" style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10)">
+                <div class="small" style="color:rgba(255,255,255,.65)">Letters</div>
+                <div class="fw-semibold">PDF on Email</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 rounded-3" style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10)">
+                <div class="small" style="color:rgba(255,255,255,.65)">Payments</div>
+                <div class="fw-semibold">Receipt + Ledger</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="p-3 rounded-3" style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10)">
+                <div class="small" style="color:rgba(255,255,255,.65)">Workflow</div>
+                <div class="fw-semibold">Draft → Submit → Review → Sanction → Disburse</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  KPI CARDS
+  <div class="row g-3 mt-3">
+    <div class="col-md-3">
+      <div class="card kpi-card p-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-muted small">Instant Tracking</div>
+            <div class="h5 fw-bold mb-0">Real-time Status</div>
+          </div>
+          <div class="feature-icon"><i class="bi bi-activity"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card kpi-card p-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-muted small">Documents</div>
+            <div class="h5 fw-bold mb-0">Upload & Download</div>
+          </div>
+          <div class="feature-icon"><i class="bi bi-folder2-open"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card kpi-card p-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-muted small">EMI</div>
+            <div class="h5 fw-bold mb-0">Schedule + Payment</div>
+          </div>
+          <div class="feature-icon"><i class="bi bi-cash-coin"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card kpi-card p-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-muted small">Ledger</div>
+            <div class="h5 fw-bold mb-0">Outstanding Balance</div>
+          </div>
+          <div class="feature-icon"><i class="bi bi-journal-text"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  FEATURES
+  <div class="mt-5">
+    <div class="section-title h3 mb-3">Why choose our portal</div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="feature-card p-4">
+          <div class="feature-icon mb-3"><i class="bi bi-lightning-charge"></i></div>
+          <h5 class="fw-bold">Fast Processing</h5>
+          <div class="text-muted">Simple online application and transparent workflow.</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card p-4">
+          <div class="feature-icon mb-3"><i class="bi bi-file-earmark-pdf"></i></div>
+          <h5 class="fw-bold">Letters as PDF</h5>
+          <div class="text-muted">Sanction & Disbursement letters delivered to email and downloadable from portal.</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card p-4">
+          <div class="feature-icon mb-3"><i class="bi bi-receipt"></i></div>
+          <h5 class="fw-bold">Payment Receipts</h5>
+          <div class="text-muted">Pay EMI, get receipt page and receipt PDF instantly.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  TOOLS
+  <div class="mt-5">
+    <div class="section-title h3 mb-3">Tools</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="tool-card p-4">
+          <div class="d-flex gap-3 align-items-start">
+            <div class="feature-icon"><i class="bi bi-calculator"></i></div>
+            <div class="flex-grow-1">
+              <h5 class="fw-bold mb-1">EMI Calculator</h5>
+              <div class="text-muted mb-3">Estimate EMI, interest and total payable quickly.</div>
+              <a class="btn btn-outline-primary" th:href="@{/ui/public/emi-calculator}">Open EMI Calculator</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="tool-card p-4">
+          <div class="d-flex gap-3 align-items-start">
+            <div class="feature-icon"><i class="bi bi-graph-up-arrow"></i></div>
+            <div class="flex-grow-1">
+              <h5 class="fw-bold mb-1">CIBIL Check (Demo)</h5>
+              <div class="text-muted mb-3">Demo score check for project use (extend with real API later).</div>
+              <a class="btn btn-outline-success" th:href="@{/ui/public/cibil-check}">Check CIBIL Score</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  STEPS
+  <div class="mt-5">
+    <div class="section-title h3 mb-3">How it works</div>
+    <div class="row g-3">
+      <div class="col-md-3">
+        <div class="feature-card p-4">
+          <div class="badge-soft mb-2">Step 1</div>
+          <div class="fw-bold">Register & Login</div>
+          <div class="text-muted small">Create customer account and login.</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="feature-card p-4">
+          <div class="badge-soft mb-2">Step 2</div>
+          <div class="fw-bold">Apply & Upload</div>
+          <div class="text-muted small">Create application and upload documents.</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="feature-card p-4">
+          <div class="badge-soft mb-2">Step 3</div>
+          <div class="fw-bold">Sanction & Disburse</div>
+          <div class="text-muted small">Admin sanctions/disburses & emails PDFs.</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="feature-card p-4">
+          <div class="badge-soft mb-2">Step 4</div>
+          <div class="fw-bold">Pay EMI</div>
+          <div class="text-muted small">Pay EMI, get receipt, see ledger.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/public/public-layout :: layout('Home', ~{::section})}">
+<section>
+
+  <!-- HERO -->
+  <div class="hero p-4 p-lg-5">
+    <div class="row align-items-center g-4 position-relative">
+      <div class="col-lg-7">
+        <div class="hero-pill mb-3">
+          <i class="bi bi-shield-check"></i>
+          Trusted • Transparent • Secure Portal
+        </div>
+
+        <h1 class="display-5 fw-bold mb-2">Home Loans made simple.</h1>
+        <p class="lead mb-4">
+          Apply online, upload documents, track status, get sanction/disbursement letters in PDF,
+          pay EMI, download receipts, and view ledger.
+        </p>
+
+        <div class="d-flex flex-wrap gap-2">
+          <a class="btn btn-primary btn-lg" th:href="@{/ui/login}">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Login
+          </a>
+          <a class="btn btn-outline-light btn-lg" th:href="@{/ui/register}">
+            <i class="bi bi-person-plus me-1"></i> Register
+          </a>
+          <a class="btn btn-outline-light btn-lg" th:href="@{/ui/public/emi-calculator}">
+            <i class="bi bi-calculator me-1"></i> EMI Calculator
+          </a>
+        </div>
+
+        <div class="mt-4 small" style="color: rgba(255,255,255,.72);">
+          <i class="bi bi-info-circle me-1"></i>
+          Loan portal UI for your project (extend with KYC, penalties, reports).
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="hero-art p-4">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <div class="small" style="color:rgba(255,255,255,.70)">Starting rate</div>
+              <div class="h2 fw-bold mb-0">9.50%</div>
+            </div>
+            <div class="text-end">
+              <div class="small" style="color:rgba(255,255,255,.70)">Tenure</div>
+              <div class="h2 fw-bold mb-0">Up to 20Y</div>
+            </div>
+          </div>
+
+          <div class="divider my-3" style="background:rgba(255,255,255,.14);"></div>
+
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="p-3 rounded-4"
+                   style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12)">
+                <div class="small" style="color:rgba(255,255,255,.70)">Letters</div>
+                <div class="fw-semibold">PDF on Email</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 rounded-4"
+                   style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12)">
+                <div class="small" style="color:rgba(255,255,255,.70)">Payments</div>
+                <div class="fw-semibold">Receipt + Ledger</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="p-3 rounded-4"
+                   style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12)">
+                <div class="small" style="color:rgba(255,255,255,.70)">Workflow</div>
+                <div class="fw-semibold">Draft → Submit → Review → Sanction → Disburse</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <a class="btn btn-warning w-100" th:href="@{/ui/public/cibil-check}">
+              <i class="bi bi-graph-up-arrow me-1"></i> Check CIBIL 
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRUST BAR -->
+  <div class="trustbar mt-4 p-3 p-lg-4">
+    <div class="row g-3 align-items-center">
+      <div class="col-md-4">
+        <div class="d-flex gap-3 align-items-center">
+          <div class="icon-chip"><i class="bi bi-lock"></i></div>
+          <div>
+            <div class="fw-bold">Secure Portal</div>
+            <div class="muted small">Session login + role based screens</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="d-flex gap-3 align-items-center">
+          <div class="icon-chip"><i class="bi bi-file-earmark-pdf"></i></div>
+          <div>
+            <div class="fw-bold">Instant PDFs</div>
+            <div class="muted small">Letters & receipts downloadable anytime</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="d-flex gap-3 align-items-center">
+          <div class="icon-chip"><i class="bi bi-lightning-charge"></i></div>
+          <div>
+            <div class="fw-bold">Fast Processing</div>
+            <div class="muted small">Admin workflow with clear status updates</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="row g-3 mt-3">
+    <div class="col-md-3">
+      <div class="soft-card p-3 kpi">
+        <div>
+          <div class="label">Transparent EMI</div>
+          <div class="value">Schedule</div>
+        </div>
+        <div class="icon-chip"><i class="bi bi-calculator"></i></div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="soft-card p-3 kpi">
+        <div>
+          <div class="label">Document</div>
+          <div class="value">Upload</div>
+        </div>
+        <div class="icon-chip"><i class="bi bi-cloud-arrow-up"></i></div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="soft-card p-3 kpi">
+        <div>
+          <div class="label">Letters</div>
+          <div class="value">PDF</div>
+        </div>
+        <div class="icon-chip"><i class="bi bi-envelope-paper"></i></div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="soft-card p-3 kpi">
+        <div>
+          <div class="label">Ledger</div>
+          <div class="value">Balance</div>
+        </div>
+        <div class="icon-chip"><i class="bi bi-journal-text"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="mt-5">
+    <div class="section-title h3 mb-3">Loan Products</div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="soft-card p-4">
+          <div class="product-badge mb-3">Home Purchase</div>
+          <div class="fw-bold h5 mb-1">Buy your dream home</div>
+          <div class="muted mb-3">Competitive rates, long tenure, easy processing.</div>
+          <ul class="small muted mb-0">
+            <li>Online application</li>
+            <li>PDF letters on email</li>
+            <li>EMI schedule + ledger</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="soft-card p-4">
+          <div class="product-badge mb-3">Home Construction</div>
+          <div class="fw-bold h5 mb-1">Build your home</div>
+          <div class="muted mb-3">Plan-based disbursement (can be extended in project).</div>
+          <ul class="small muted mb-0">
+            <li>Document upload</li>
+            <li>Admin sanction workflow</li>
+            <li>Receipts downloadable</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="soft-card p-4">
+          <div class="product-badge mb-3">Balance Transfer</div>
+          <div class="fw-bold h5 mb-1">Switch & save</div>
+          <div class="muted mb-3">Lower rate and better service experience.</div>
+          <ul class="small muted mb-0">
+            <li>Eligibility check (extend)</li>
+            <li>Ledger transparency</li>
+            <li>EMI payment simulation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="mt-5">
+    <div class="section-title h3 mb-3">Tools</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="soft-card p-4">
+          <div class="d-flex gap-3">
+            <div class="icon-chip"><i class="bi bi-calculator"></i></div>
+            <div class="flex-grow-1">
+              <div class="fw-bold h5 mb-1">EMI Calculator</div>
+              <div class="muted mb-3">Estimate EMI, total interest and total payable.</div>
+              <a class="btn btn-outline-primary" th:href="@{/ui/public/emi-calculator}">Open EMI Calculator</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="soft-card p-4">
+          <div class="d-flex gap-3">
+            <div class="icon-chip"><i class="bi bi-graph-up-arrow"></i></div>
+            <div class="flex-grow-1">
+              <div class="fw-bold h5 mb-1">CIBIL Check</div>
+              <div class="muted mb-3">Demo score check for project purpose.</div>
+              <a class="btn btn-outline-success" th:href="@{/ui/public/cibil-check}">Check Score</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="mt-5">
+    <div class="section-title h3 mb-3">Frequently Asked Questions</div>
+
+    <div class="accordion" id="faq">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#q1">
+            How do I apply for a home loan?
+          </button>
+        </h2>
+        <div id="q1" class="accordion-collapse collapse show" data-bs-parent="#faq">
+          <div class="accordion-body">
+            Register → Login → Create Application → Upload Documents → Submit. Admin will review and sanction/disburse.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2">
+            Can I download letters and receipts?
+          </button>
+        </h2>
+        <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faq">
+          <div class="accordion-body">
+            Yes. Sanction/Disbursement letters and EMI payment receipts are available as PDF downloads.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q3">
+            Is payment gateway integrated?
+          </button>
+        </h2>
+        <div id="q3" class="accordion-collapse collapse" data-bs-parent="#faq">
+          <div class="accordion-body">
+            This project records payment in database (simulation). You can integrate Razorpay/Stripe later.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="soft-card p-4 mt-5">
+    <div class="row align-items-center g-3">
+      <div class="col-lg-8">
+        <div class="h4 fw-bold mb-1">Ready to apply?</div>
+        <div class="muted">Create your account and start your home loan application in minutes.</div>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a class="btn btn-primary btn-lg" th:href="@{/ui/register}">
+          <i class="bi bi-person-plus me-1"></i> Register Now
+        </a>
+      </div>
+    </div>
+  </div>
+
+</section>
+</html>

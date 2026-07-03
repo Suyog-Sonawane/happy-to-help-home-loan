@@ -1,0 +1,120 @@
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="ui/fragments :: head('EMI Schedule')"></head>
+<body>
+<div th:replace="ui/fragments :: nav"></div>
+<div th:replace="ui/fragments :: alerts"></div>
+
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center">
+    <h3>EMI Schedule - App #<span th:text="${app.id}"></span></h3>
+    <a class="btn btn-link" th:href="@{'/ui/customer/applications/' + ${app.id}}">Back</a>
+  </div>
+
+  <table class="table table-bordered table-striped mt-3">
+    <thead>
+    <tr>
+      <th>No</th><th>Due Date</th><th>EMI</th><th>Principal</th><th>Interest</th><th>Status</th><th>Pay</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="e : ${emis}">
+      <td th:text="${e.installmentNo}"></td>
+      <td th:text="${e.dueDate}"></td>
+      <td th:text="${e.emiAmount}"></td>
+      <td th:text="${e.principalComponent}"></td>
+      <td th:text="${e.interestComponent}"></td>
+      <td th:text="${e.status}"></td>
+      <td>
+        <div th:if="${e.status.name() == 'DUE'}">
+          <form method="post"
+                th:action="@{'/ui/customer/applications/' + ${app.id} + '/emis/' + ${e.id} + '/pay'}"
+                th:object="${payReq}" class="d-flex gap-2">
+            <input type="hidden" name="amount" th:value="${e.emiAmount}">
+            <select class="form-select form-select-sm" name="method" required>
+              <option value="UPI">UPI</option>
+              <option value="NETBANKING">NETBANKING</option>
+              <option value="CARD">CARD</option>
+              <option value="CASH">CASH</option>
+            </select>
+            <input class="form-control form-control-sm" name="txnRef" placeholder="Txn Ref (optional)">
+            <button class="btn btn-sm btn-success" type="submit">Pay</button>
+          </form>
+        </div>
+        <div th:if="${e.status.name() == 'PAID'}">
+          Paid on <span th:text="${e.paidDate}"></span>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <p class="text-muted">Payment is recorded in DB (simulation). No payment gateway integration.</p>
+</div>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{ui/layout/portal :: layout('EMI Schedule', ~{::section})}">
+<section>
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <div>
+      <h3 class="mb-0">EMI Schedule</h3>
+      <div class="text-muted">Application #<b th:text="${app.id}"></b></div>
+    </div>
+    <a class="btn btn-outline-secondary" th:href="@{'/ui/customer/applications/' + ${app.id}}">Back</a>
+  </div>
+
+  <div class="card p-3">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped align-middle mb-0">
+        <thead>
+        <tr>
+          <th>No</th><th>Due Date</th><th>EMI</th><th>Principal</th><th>Interest</th><th>Status</th><th>Pay</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="e : ${emis}">
+          <td th:text="${e.installmentNo}"></td>
+          <td th:text="${e.dueDate}"></td>
+          <td th:text="${e.emiAmount}"></td>
+          <td th:text="${e.principalComponent}"></td>
+          <td th:text="${e.interestComponent}"></td>
+          <td>
+            <span class="badge bg-success" th:if="${e.status.name() == 'PAID'}">PAID</span>
+            <span class="badge bg-warning text-dark" th:if="${e.status.name() == 'DUE'}">DUE</span>
+          </td>
+          <td>
+            <div th:if="${e.status.name() == 'DUE'}">
+              <form method="post"
+                    th:action="@{'/ui/customer/applications/' + ${app.id} + '/emis/' + ${e.id} + '/pay'}"
+                    th:object="${payReq}" class="d-flex gap-2">
+                <input type="hidden" name="amount" th:value="${e.emiAmount}">
+                <select class="form-select form-select-sm" name="method" required>
+                  <option value="UPI">UPI</option>
+                  <option value="NETBANKING">NETBANKING</option>
+                  <option value="CARD">CARD</option>
+                  <option value="CASH">CASH</option>
+                </select>
+                <input class="form-control form-control-sm" name="txnRef" placeholder="Txn Ref (optional)">
+                <button class="btn btn-sm btn-success" type="submit">Pay</button>
+              </form>
+            </div>
+
+            <div th:if="${e.status.name() == 'PAID'}">
+              <a class="btn btn-sm btn-outline-primary"
+                 th:href="@{'/ui/customer/applications/' + ${app.id} + '/emis/' + ${e.id} + '/receipt'}">
+                View Receipt
+              </a>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+</html>
