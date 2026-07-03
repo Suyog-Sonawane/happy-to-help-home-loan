@@ -140,7 +140,6 @@ Built with **Java 17, Spring Boot, Thymeleaf, Bootstrap, and MySQL**, following 
 |------------------|--------------|-------------|
 | ![EMI](src/main/resources/templates/screenshot/EMICal.png) | ![CIBIL](src/main/resources/templates/screenshot/CIBILcheck.png) | ![Contact](src/main/resources/templates/screenshot/contactus.png) |
 
-*(Update the paths above to match your actual repo folder structure.)*
 
 ---
 
